@@ -39,26 +39,26 @@ int readInt(const char *text, int *number)
 int main(int argc, char *argv[])
 {
     if ((argc < 6) || ((argc - 3) % 3 != 0)) {
-        printf("Usage: cmdcalc A OP B ... -k KEY\n");
+        printf("Аргументы потерялись! Пример: cmdcalc 41 + 33 -k 2\n");
         return 1;
     }
 
     const char *flag = argv[argc - 2];
     if ((flag[0] != '-') || (flag[1] != 'k') || (flag[2] != '\0')) {
-        printf("Error: expected -k before key\n");
+        printf("Ключ без бирки! Перед ним должен стоять флаг -k.\n");
         return 1;
     }
 
     int key;
     if (!readInt(argv[argc - 1], &key)) {
-        printf("Error: invalid key\n");
+        printf("Такой ключ не подходит: нужно целое число допустимого размера.\n");
         return 1;
     }
 
     const int count = (argc - 3) / 3;
     long long *results = malloc((size_t)count * sizeof(long long));
     if (results == NULL) {
-        printf("Error: not enough memory\n");
+        printf("Память закончилась. Даже калькулятору нужно личное пространство!\n");
         return 1;
     }
 
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
             !readInt(argv[position + 2], &right) ||
             (operation[0] == '\0') || (operation[1] != '\0') ||
             !calculate(left, operation[0], right, &results[i])) {
-            printf("Error in expression %d\n", i + 1);
+            printf("В выражении №%d что-то не сходится. Проверь числа и знак!\n", i + 1);
             free(results);
             return 1;
         }
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
     char *text = decode(results, count, key);
     if (text == NULL) {
-        printf("Error: invalid ASCII code or not enough memory\n");
+        printf("Шифр не сдался: код символа вне диапазона 0–127 или не хватает памяти.\n");
         free(results);
         return 1;
     }
