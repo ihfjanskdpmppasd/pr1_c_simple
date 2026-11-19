@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "calc.h"
 
-/* Собираем целое число из цифр, учитывая знак. */
 int readInt(const char *text, int *number)
 {
     int i = 0;
@@ -39,7 +38,6 @@ int readInt(const char *text, int *number)
 
 int main(int argc, char *argv[])
 {
-    /* Имя программы, тройки аргументов, флаг и ключ. */
     if ((argc < 6) || ((argc - 3) % 3 != 0)) {
         printf("Usage: cmdcalc A OP B ... -k KEY\n");
         return 1;

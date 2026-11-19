@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "calc.h"
 
-/* Расширяем тип до вычисления, чтобы результат поместился. */
 int calculate(int left, char operation, int right, long long *result)
 {
     switch (operation) {
@@ -26,7 +25,6 @@ int calculate(int left, char operation, int right, long long *result)
     return 1;
 }
 
-/* Вычитаем ключ и записываем символы с полученными ASCII-кодами. */
 char *decode(const long long *results, int count, int key)
 {
     char *text = malloc((size_t)count + 1);
